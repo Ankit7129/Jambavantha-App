@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Header: Current Location TextView -->
+    <TextView
+        android:id="@+id/current_location_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Location: --"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <!-- Username TextView -->
+    <TextView
+        android:id="@+id/username_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello User"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@id/current_location_text_view"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Field Sensor Data Box -->
+    <RelativeLayout
+        android:id="@+id/field_sensor_data_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username_text_view"
+        android:layout_marginTop="10dp"
+        android:padding="16dp"
+        android:background="@drawable/rectangle_background">
+
+        <TextView
+            android:id="@+id/soil_moisture_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Soil Moisture: --"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/temperature_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/soil_moisture_data"
+            android:layout_marginTop="8dp"
+            android:text="Temperature: --"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/humidity_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/temperature_data"
+            android:layout_marginTop="8dp"
+            android:text="Humidity: --"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/rain_forecast_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/humidity_data"
+            android:layout_marginTop="8dp"
+            android:text="Rain Forecast: --"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+
+    <!-- Rain Forecast Button -->
+    <Button
+        android:id="@+id/rain_forecast_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/field_sensor_data_box"
+        android:layout_marginTop="16dp"
+        android:text="Rain Forecast"/>
+
+    <!-- Mode Switch Button -->
+    <Button
+        android:id="@+id/mode_switch_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/rain_forecast_button"
+        android:layout_marginTop="16dp"
+        android:text="Switch to Manual Mode"/>
+
+    <!-- Motor Feedback Box -->
+    <RelativeLayout
+        android:id="@+id/motor_feedback_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mode_switch_button"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:background="@drawable/rectangle_background">
+
+        <TextView
+            android:id="@+id/motor_feedback_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Motor Feedback: --"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+
+    <!-- Scheduler and Manual Control Section -->
+    <RelativeLayout
+        android:id="@+id/scheduler_and_control_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/motor_feedback_box"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:background="@drawable/rectangle_background">
+
+        <!-- Scheduler Button -->
+        <Button
+            android:id="@+id/schedule_integration_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Schedule Irrigation"
+            android:textSize="12sp"
+            android:layout_alignParentStart="true"/>
+
+        <!-- Manual Motor Control Buttons -->
+        <Button
+            android:id="@+id/manual_motor_on_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Turn On Motor"
+            android:layout_alignParentEnd="true"/>
+
+        <Button
+            android:id="@+id/manual_motor_off_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Turn Off Motor"
+            android:layout_below="@id/manual_motor_on_button"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"/>
+    </RelativeLayout>
+
+    <!-- Timer TextView -->
+    <TextView
+        android:id="@+id/timer_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scheduler_and_control_box"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentStart="true"
+        android:text="Timer: --"
+        android:textSize="16sp"/>
+
+    <!-- Weather Data TextView -->
+    <TextView
+        android:id="@+id/weather_data_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timer_text_view"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        android:text="Weather Data: --"
+        android:textSize="16sp" />
+
+    <!-- Profile Button -->
+    <Button
+        android:id="@+id/profile_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rectangle_background"
+        android:text="Profile"/>
+
+    <!-- Logout Button -->
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rectangle_background"
+        android:text="Logout" />
+
+    <!-- ProgressBar -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+</RelativeLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".RegisterActivity">
+
+    <!-- First Name Input Field -->
+    <EditText
+        android:id="@+id/input_first_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="First Name" />
+
+    <!-- Last Name Input Field -->
+    <EditText
+        android:id="@+id/input_last_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_first_name"
+        android:hint="Last Name" />
+
+    <!-- Email Input Field -->
+    <EditText
+        android:id="@+id/input_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_last_name"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+    <!-- Phone Input Field -->
+    <EditText
+        android:id="@+id/input_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_email"
+        android:hint="Phone"
+        android:inputType="phone" />
+
+    <!-- Birth Date Input Field -->
+    <EditText
+        android:id="@+id/input_birth_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_phone"
+        android:hint="Birth Date" />
+
+    <!-- Password Input Field -->
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_birth_date"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <!-- Confirm Password Input Field -->
+    <EditText
+        android:id="@+id/input_confirm_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_password"
+        android:hint="Confirm Password"
+        android:inputType="textPassword" />
+
+    <!-- Register Button -->
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_confirm_password"
+        android:layout_marginTop="16dp"
+        android:text="Register" />
+
+    <!-- Login Button -->
+    <TextView
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Have an account? Login"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_below="@id/register_button"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
+
+    <!-- Google Sign-In Button -->
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_button"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:text="Sign in with Google" />
+
+</RelativeLayout>

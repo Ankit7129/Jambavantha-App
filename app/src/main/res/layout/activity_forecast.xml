@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/material_dynamic_primary10">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Day 1 -->
+                <ScrollView
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp"
+                        android:background="#FFFFFF"
+                        android:layout_margin="4dp"
+                        android:elevation="2dp">
+
+                        <TextView
+                            android:id="@+id/day1_title"
+                            android:layout_width="260dp"
+                            android:layout_height="wrap_content"
+                            android:text="Day 1 Forecast"
+                            android:textSize="18sp"
+                            android:textColor="#333"
+                            android:paddingBottom="8dp" />
+
+                        <!-- Hourly data for Day 1 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/day1_hour1"
+                                android:layout_width="150dp"                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="6 AM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day1_hour2"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="9 AM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day1_hour3"
+                                android:layout_width="150dp"                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="12 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day1_hour4"
+                                android:layout_width="150dp"                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="3 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day1_hour5"
+                                android:layout_width="150dp"                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="6 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day1_hour6"
+                                android:layout_width="150dp"                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="9 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
+
+                <!-- Day 2 -->
+                <ScrollView
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp"
+                        android:background="#FFFFFF"
+                        android:layout_margin="4dp"
+                        android:elevation="2dp">
+
+                        <TextView
+                            android:id="@+id/day2_title"
+                            android:layout_width="260dp"
+                            android:layout_height="wrap_content"
+                            android:text="Day 2 Forecast"
+                            android:textSize="18sp"
+                            android:textColor="#333"
+                            android:paddingBottom="8dp" />
+
+                        <!-- Hourly data for Day 2 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/day2_hour1"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="6 AM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day2_hour2"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="9 AM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day2_hour3"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="12 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day2_hour4"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="3 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day2_hour5"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="6 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day2_hour6"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="9 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
+
+                <!-- Day 3 -->
+                <ScrollView
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp"
+                        android:background="#FFFFFF"
+                        android:layout_margin="4dp"
+                        android:elevation="2dp">
+
+                        <TextView
+                            android:id="@+id/day3_title"
+                            android:layout_width="260dp"
+                            android:layout_height="wrap_content"
+                            android:text="Day 3 Forecast"
+                            android:textSize="18sp"
+                            android:textColor="#333"
+                            android:paddingBottom="8dp" />
+
+                        <!-- Hourly data for Day 3 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/day3_hour1"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="6 AM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day3_hour2"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="9 AM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day3_hour3"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="12 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day3_hour4"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="3 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day3_hour5"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="6 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day3_hour6"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="9 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
+
+                <!-- Day 4 -->
+                <ScrollView
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp"
+                        android:background="#FFFFFF"
+                        android:layout_margin="4dp"
+                        android:elevation="2dp">
+
+                        <TextView
+                            android:id="@+id/day4_title"
+                            android:layout_width="260dp"
+                            android:layout_height="wrap_content"
+                            android:text="Day 4 Forecast"
+                            android:textSize="18sp"
+                            android:textColor="#333"
+                            android:paddingBottom="8dp" />
+
+                        <!-- Hourly data for Day 4 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/day4_hour1"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="6 AM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day4_hour2"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="9 AM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day4_hour3"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="12 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day4_hour4"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="3 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day4_hour5"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="6 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day4_hour6"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="9 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
+
+                <!-- Day 5 -->
+                <ScrollView
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp"
+                        android:background="#FFFFFF"
+                        android:layout_margin="4dp"
+                        android:elevation="2dp">
+
+                        <TextView
+                            android:id="@+id/day5_title"
+                            android:layout_width="260dp"
+                            android:layout_height="wrap_content"
+                            android:text="Day 5 Forecast"
+                            android:textSize="18sp"
+                            android:textColor="#333"
+                            android:paddingBottom="8dp" />
+
+                        <!-- Hourly data for Day 5 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/day5_hour1"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="6 AM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day5_hour2"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="9 AM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day5_hour3"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="12 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day5_hour4"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="3 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day5_hour5"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="6 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+
+                            <TextView
+                                android:id="@+id/day5_hour6"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:gravity="left"
+                                android:text="9 PM"
+                                android:textSize="16sp"
+                                android:textColor="#333"
+                                android:padding="8dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </FrameLayout>
+
+</RelativeLayout>

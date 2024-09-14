@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Jambavantha</string>
+    <string name="default_web_client_id">220065813284-qsbobse2p3ka8kctrfv96mce2qppq2uf.apps.googleusercontent.com</string>
+    <string name="register_title">Register</string>
+    <string name="login_title">Login</string>
+
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register_button">Register</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="sign_in_google">Sign in with Google</string>
+</resources>
