@@ -11,6 +11,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.os.AsyncTask;
+import org.json.JSONObject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,19 +36,19 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private static final String WEATHER_API_KEY = "da552626aaca0bf507c70ed7c260d724"; // OpenWeatherMap API Key
-    private static final String ESP_IP = "http://192.168.23.99"; // Example ESP IP for fetching sensor data
+    private static final String ESP_IP = "http://192.168.127.99"; // Example ESP IP for fetching sensor data
 
-    private Button logoutButton, modeSwitchButton, rainForecastButton, profileButton, scheduleIntegrationButton, motorOnButton, motorOffButton;
+    private Button logoutButton, rainForecastButton, profileButton, fieldControlButton;
     private FirebaseAuth mAuth;
-    private TextView usernameTextView, currentLocationTextView, soilMoistureDataTextView, temperatureDataTextView, humidityDataTextView, rainForecastDataTextView, motorFeedbackTextView, timerTextView, weatherDataTextView;
+    private TextView usernameTextView, currentLocationTextView, temperatureDataTextView, humidityDataTextView, windSpeedDataTextView, motorFeedbackTextView, timerTextView;
 
-    private boolean isAutoMode = true; // Default to Auto Mode
     private LocationManager locationManager;
     private Calendar scheduledTime;
 
@@ -77,21 +80,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     private void initializeUIElements() {
         logoutButton = findViewById(R.id.logout_button);
-        modeSwitchButton = findViewById(R.id.mode_switch_button);
         rainForecastButton = findViewById(R.id.rain_forecast_button);
         profileButton = findViewById(R.id.profile_button);
-        scheduleIntegrationButton = findViewById(R.id.schedule_integration_button);
-        motorOnButton = findViewById(R.id.manual_motor_on_button);
-        motorOffButton = findViewById(R.id.manual_motor_off_button);
+        fieldControlButton = findViewById(R.id.field_control_button);
         usernameTextView = findViewById(R.id.username_text_view);
         currentLocationTextView = findViewById(R.id.current_location_text_view);
-        soilMoistureDataTextView = findViewById(R.id.soil_moisture_data);
         temperatureDataTextView = findViewById(R.id.temperature_data);
         humidityDataTextView = findViewById(R.id.humidity_data);
-        rainForecastDataTextView = findViewById(R.id.rain_forecast_data);
-        motorFeedbackTextView = findViewById(R.id.motor_feedback_text_view);
-        timerTextView = findViewById(R.id.timer_text_view);
-        weatherDataTextView = findViewById(R.id.weather_data_text_view);
+        windSpeedDataTextView = findViewById(R.id.wind_speed_data);
     }
 
     private void setupButtonListeners() {
@@ -103,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         });
 
         // Mode Switch Button
-        modeSwitchButton.setOnClickListener(v -> toggleMode());
 
         // Rain Forecast Button
         rainForecastButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ForecastActivity.class)));
@@ -111,15 +106,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         // Profile Button
         profileButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ProfileActivity.class)));
 
-        // Schedule Integration Button
-        scheduleIntegrationButton.setOnClickListener(v -> handleScheduleButton());
 
-        // Motor Control Buttons
-        motorOnButton.setOnClickListener(v -> controlMotor(true));
-        motorOffButton.setOnClickListener(v -> controlMotor(false));
+        // Field Control Button
+        fieldControlButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, FieldDataActivity.class);
+            startActivity(intent);
+        });
 
-        // Update UI based on the current mode
-        updateUIForMode();
+
+
     }
 
     private void initializeLocationManager() {
@@ -172,51 +167,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
     }
 
-    private void toggleMode() {
-        isAutoMode = !isAutoMode;
-        updateUIForMode();
-
-        if (isAutoMode) {
-            Toast.makeText(this, "Switched to Auto Mode", Toast.LENGTH_SHORT).show();
-            handleAutoMode();
-        } else {
-            Toast.makeText(this, "Switched to Manual Mode", Toast.LENGTH_SHORT).show();
-            handleManualMode();
-        }
-    }
-
-    private void updateUIForMode() {
-        if (isAutoMode) {
-            modeSwitchButton.setText("Switch to Manual Mode");
-            motorFeedbackTextView.setText("Auto Mode: Sensor-based irrigation");
-            disableManualControls();
-        } else {
-            modeSwitchButton.setText("Switch to Auto Mode");
-            motorFeedbackTextView.setText("Manual Mode: Set timer or control motor");
-            enableManualControls();
-        }
-    }
-
-
-    private void handleScheduleButton() {
-        if (isAutoMode) {
-            Toast.makeText(this, "Please switch to Manual Mode to schedule the motor.", Toast.LENGTH_SHORT).show();
-        } else {
-            showSchedulerDialog();
-        }
-    }
-
-    private void disableManualControls() {
-        scheduleIntegrationButton.setEnabled(false);
-        motorOnButton.setEnabled(false);
-        motorOffButton.setEnabled(false);
-    }
-
-    private void enableManualControls() {
-        scheduleIntegrationButton.setEnabled(true);
-        motorOnButton.setEnabled(true);
-        motorOffButton.setEnabled(true);
-    }
 
     private void fetchWeatherData(double latitude, double longitude) {
         new Thread(() -> {
@@ -224,9 +174,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 String apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + WEATHER_API_KEY + "&units=metric";
                 HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
                 StringBuilder response = new StringBuilder();
                 String line;
-
                 while ((line = reader.readLine()) != null) {
                     response.append(line);
                 }
@@ -247,121 +197,62 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             JSONObject main = jsonObject.getJSONObject("main");
             double temperature = main.getDouble("temp");
             int humidity = main.getInt("humidity");
-            weatherDataTextView.setText("Temperature: " + temperature + "°C\nHumidity: " + humidity + "%");
-
-            // Extract rain forecast
-            if (jsonObject.has("rain")) {
-                JSONObject rain = jsonObject.getJSONObject("rain");
-                String rainInfo = "Rain volume: " + rain.optDouble("1h", 0) + " mm";
-                rainForecastDataTextView.setText(rainInfo);
-            } else {
-                rainForecastDataTextView.setText("No rain forecast available.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            weatherDataTextView.setText("Error in weather data.");
-        }
-    }
-
-    private void controlMotor(boolean turnOn) {
-        String action = turnOn ? "on" : "off";
-        new Thread(() -> {
-            try {
-                URL url = new URL(ESP_IP + "/motor?state=" + action);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                int responseCode = connection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    runOnUiThread(() -> motorFeedbackTextView.setText("Motor turned " + (turnOn ? "on" : "off")));
-                } else {
-                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Failed to control motor.", Toast.LENGTH_SHORT).show());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Error controlling motor.", Toast.LENGTH_SHORT).show());
-            }
-        }).start();
-    }
-
-    private void fetchLiveSensorData() {
-        new Thread(() -> {
-            try {
-                URL url = new URL(ESP_IP + "/sensors");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
-
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-
-                reader.close();
-                connection.disconnect();
-
-                runOnUiThread(() -> updateSensorUI(response.toString()));
-            } catch (Exception e) {
-                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Failed to fetch sensor data.", Toast.LENGTH_SHORT).show());
-            }
-        }).start();
-    }
-
-    private void updateSensorUI(String jsonResponse) {
-        try {
-            JSONObject jsonObject = new JSONObject(jsonResponse);
-            double soilMoisture = jsonObject.getDouble("soil_moisture");
-            double temperature = jsonObject.getDouble("temperature");
-            double humidity = jsonObject.getDouble("humidity");
-
-            soilMoistureDataTextView.setText("Soil Moisture: " + soilMoisture + "%");
             temperatureDataTextView.setText("Temperature: " + temperature + "°C");
             humidityDataTextView.setText("Humidity: " + humidity + "%");
+
+            // Extract wind speed
+            if (jsonObject.has("wind")) {
+                JSONObject wind = jsonObject.getJSONObject("wind");
+                double windSpeed = wind.getDouble("speed");
+                windSpeedDataTextView.setText("Wind Speed: " + windSpeed + " m/s");
+            } else {
+                windSpeedDataTextView.setText("Wind Speed: Data not available.");
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            soilMoistureDataTextView.setText("Error fetching data.");
+            temperatureDataTextView.setText("Error in weather data.");
+            humidityDataTextView.setText("");
+            windSpeedDataTextView.setText("");
         }
     }
 
     private void showSchedulerDialog() {
+        // Code to show date and time picker dialog for scheduling
         Calendar calendar = Calendar.getInstance();
-        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = calendar.get(Calendar.MINUTE);
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-            scheduledTime.set(Calendar.YEAR, year);
-            scheduledTime.set(Calendar.MONTH, month);
-            scheduledTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this, (timePicker, hourOfDay, minute) -> {
-                scheduledTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                scheduledTime.set(Calendar.MINUTE, minute);
-                schedulePumpTask();
-            }, currentHour, currentMinute, true);
-            timePickerDialog.show();
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
+        new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            new TimePickerDialog(this, (timePicker, hourOfDay, minute) -> {
+                scheduledTime = Calendar.getInstance();
+                scheduledTime.set(year, month, dayOfMonth, hourOfDay, minute);
+                String dateTime = String.format(Locale.getDefault(), "%d-%02d-%02d %02d:%02d", year, month + 1, dayOfMonth, hourOfDay, minute);
+                timerTextView.setText("Scheduled Time: " + dateTime);
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
-    private void schedulePumpTask() {
-        // Implement scheduling logic here
-        Toast.makeText(this, "Pump scheduled for " + scheduledTime.getTime().toString(), Toast.LENGTH_LONG).show();
+    private void controlMotor(boolean turnOn) {
+        // Code to control the motor, potentially communicating with the ESP module
+        String motorAction = turnOn ? "ON" : "OFF";
+        motorFeedbackTextView.setText("Motor " + motorAction);
+    }
+
+    private void fetchLiveSensorData() {
+        // Code to fetch live sensor data from ESP module and update UI
     }
 
     private void handleAutoMode() {
-        // Implement Auto Mode logic here
+        // Code to handle Auto Mode, including fetching sensor data and controlling the motor automatically
     }
 
     private void handleManualMode() {
-        // Implement Manual Mode logic here
+        // Code to handle Manual Mode, including allowing the user to control the motor manually
     }
 
     @Override
-    public void onProviderDisabled(@NonNull String provider) {
-    }
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
 
     @Override
-    public void onProviderEnabled(@NonNull String provider) {
-    }
+    public void onProviderEnabled(@NonNull String provider) {}
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
+    public void onProviderDisabled(@NonNull String provider) {}
 }

@@ -20,38 +20,32 @@
         android:id="@+id/username_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/current_location_text_view"
+        android:layout_marginTop="16dp"
         android:text="Hello User"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_below="@id/current_location_text_view"
-        android:layout_marginTop="16dp"/>
+        android:textStyle="bold" />
 
     <!-- Field Sensor Data Box -->
     <RelativeLayout
         android:id="@+id/field_sensor_data_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="378dp"
+        android:layout_height="227dp"
         android:layout_below="@id/username_text_view"
         android:layout_marginTop="10dp"
-        android:padding="16dp"
-        android:background="@drawable/rectangle_background">
+        android:background="@drawable/rectangle_background"
+        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/soil_moisture_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Soil Moisture: --"
-            android:textSize="16sp"/>
-
+        <!-- Temperature Data -->
         <TextView
             android:id="@+id/temperature_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/soil_moisture_data"
             android:layout_marginTop="8dp"
             android:text="Temperature: --"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
+        <!-- Humidity Data -->
         <TextView
             android:id="@+id/humidity_data"
             android:layout_width="wrap_content"
@@ -59,115 +53,59 @@
             android:layout_below="@id/temperature_data"
             android:layout_marginTop="8dp"
             android:text="Humidity: --"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
+        <!-- Wind Speed Data -->
         <TextView
-            android:id="@+id/rain_forecast_data"
+            android:id="@+id/wind_speed_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/humidity_data"
             android:layout_marginTop="8dp"
-            android:text="Rain Forecast: --"
-            android:textSize="16sp"/>
+            android:text="Wind Speed: --"
+            android:textSize="16sp" />
     </RelativeLayout>
 
-    <!-- Rain Forecast Button -->
-    <Button
-        android:id="@+id/rain_forecast_button"
-        android:layout_width="wrap_content"
+    <!-- Button Container with Rectangular Background -->
+    <RelativeLayout
+        android:id="@+id/button_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/field_sensor_data_box"
-        android:layout_marginTop="16dp"
-        android:text="Rain Forecast"/>
-
-    <!-- Mode Switch Button -->
-    <Button
-        android:id="@+id/mode_switch_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/rain_forecast_button"
-        android:layout_marginTop="16dp"
-        android:text="Switch to Manual Mode"/>
-
-    <!-- Motor Feedback Box -->
-    <RelativeLayout
-        android:id="@+id/motor_feedback_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/mode_switch_button"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle_background"
         android:padding="16dp"
-        android:background="@drawable/rectangle_background">
+        android:layout_centerHorizontal="true">
 
-        <TextView
-            android:id="@+id/motor_feedback_text_view"
+        <!-- Horizontal Layout for Buttons -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Motor Feedback: --"
-            android:textSize="16sp"/>
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <!-- Field Control Button (Square) -->
+            <Button
+                android:id="@+id/field_control_button"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:text="Field Control"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/green_button_background"
+                android:layout_marginEnd="10dp"/>
+
+            <!-- Rain Forecast Button (Square) -->
+            <Button
+                android:id="@+id/rain_forecast_button"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:text="Rain Forecast"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/green_button_background"/>
+        </LinearLayout>
     </RelativeLayout>
-
-    <!-- Scheduler and Manual Control Section -->
-    <RelativeLayout
-        android:id="@+id/scheduler_and_control_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/motor_feedback_box"
-        android:layout_marginTop="16dp"
-        android:padding="16dp"
-        android:background="@drawable/rectangle_background">
-
-        <!-- Scheduler Button -->
-        <Button
-            android:id="@+id/schedule_integration_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Schedule Irrigation"
-            android:textSize="12sp"
-            android:layout_alignParentStart="true"/>
-
-        <!-- Manual Motor Control Buttons -->
-        <Button
-            android:id="@+id/manual_motor_on_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Turn On Motor"
-            android:layout_alignParentEnd="true"/>
-
-        <Button
-            android:id="@+id/manual_motor_off_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Turn Off Motor"
-            android:layout_below="@id/manual_motor_on_button"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"/>
-    </RelativeLayout>
-
-    <!-- Timer TextView -->
-    <TextView
-        android:id="@+id/timer_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/scheduler_and_control_box"
-        android:layout_marginTop="16dp"
-        android:layout_alignParentStart="true"
-        android:text="Timer: --"
-        android:textSize="16sp"/>
-
-    <!-- Weather Data TextView -->
-    <TextView
-        android:id="@+id/weather_data_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/timer_text_view"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
-        android:text="Weather Data: --"
-        android:textSize="16sp" />
 
     <!-- Profile Button -->
     <Button
