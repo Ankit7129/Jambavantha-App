@@ -1,4 +1,11 @@
 package com.example.jambavantha;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+import java.net.UnknownHostException;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +28,7 @@ import java.net.URL;
 public class FieldDataActivity extends AppCompatActivity {
 
     private static final String TAG = "FieldDataActivity";
-    private static final String ESP_IP = "http://192.168.127.99"; // Replace with your ESP device IP
+    private static final String ESP_IP = "http://192.168.84.99"; // Replace with your ESP device IP
     private Handler handler = new Handler();
 
     private TextView soilMoistureTextView;
@@ -120,50 +127,79 @@ public class FieldDataActivity extends AppCompatActivity {
 
     private void fetchFieldData() {
         new Thread(() -> {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
             try {
                 URL url = new URL(ESP_IP + "/status");
                 Log.d(TAG, "Fetching data from: " + url);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
-                connection.setConnectTimeout(5000); // Set connection timeout
-                connection.setReadTimeout(5000);    // Set read timeout
+                connection.setConnectTimeout(5000); // Connection timeout (5 sec)
+                connection.setReadTimeout(5000);    // Read timeout (5 sec)
 
                 int responseCode = connection.getResponseCode();
                 Log.d(TAG, "Response Code: " + responseCode);
 
                 if (responseCode == HttpURLConnection.HTTP_OK) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     StringBuilder response = new StringBuilder();
                     String line;
                     while ((line = reader.readLine()) != null) {
                         response.append(line);
                     }
-                    reader.close();
-                    connection.disconnect();
                     Log.d(TAG, "Response: " + response.toString());
+
                     runOnUiThread(() -> updateFieldDataUI(response.toString()));
                 } else {
-                    Log.e(TAG, "Failed to fetch field data. Response Code: " + responseCode);
-                    runOnUiThread(() -> Toast.makeText(FieldDataActivity.this, "Failed to fetch field data. Response Code: " + responseCode, Toast.LENGTH_SHORT).show());
+                    String errorMsg = "Failed to fetch field data. Response Code: " + responseCode;
+                    Log.e(TAG, errorMsg);
+                    runOnUiThread(() -> Toast.makeText(FieldDataActivity.this, errorMsg, Toast.LENGTH_LONG).show());
                 }
+
+            } catch (SocketTimeoutException e) {
+                Log.e(TAG, "Timeout error: " + e.getMessage(), e);
+                runOnUiThread(() -> Toast.makeText(FieldDataActivity.this, "Connection timed out. Check your network or ESP device.", Toast.LENGTH_LONG).show());
+
+            } catch (UnknownHostException e) {
+                Log.e(TAG, "Network error: " + e.getMessage(), e);
+                runOnUiThread(() -> Toast.makeText(FieldDataActivity.this, "No internet connection or ESP device unreachable.", Toast.LENGTH_LONG).show());
+
+            } catch (IOException e) {
+                Log.e(TAG, "I/O error: " + e.getMessage(), e);
+                runOnUiThread(() -> Toast.makeText(FieldDataActivity.this, "Error reading data. Please try again.", Toast.LENGTH_LONG).show());
+
             } catch (Exception e) {
-                Log.e(TAG, "Error fetching field data", e);
-                runOnUiThread(() -> Toast.makeText(FieldDataActivity.this, "Failed to fetch field data.", Toast.LENGTH_SHORT).show());
+                Log.e(TAG, "Unexpected error: " + e.getMessage(), e);
+                runOnUiThread(() -> Toast.makeText(FieldDataActivity.this, "An unexpected error occurred.", Toast.LENGTH_LONG).show());
+
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        Log.e(TAG, "Error closing reader: " + e.getMessage(), e);
+                    }
+                }
+                if (connection != null) {
+                    connection.disconnect();
+                }
             }
         }).start();
     }
+
 
     private void updateFieldDataUI(String jsonResponse) {
         try {
             JSONObject jsonObject = new JSONObject(jsonResponse);
 
-            soilMoistureTextView.setText("Soil Moisture: " + jsonObject.getInt("soilMoisture"));
-            receivedSoilMoistureTextView.setText("Received Soil Moisture: " + jsonObject.getInt("receivedSoilMoisture"));
-            motorStatusTextView.setText("Motor Status: " + jsonObject.getString("motorStatus"));
-            lowerThresholdTextView.setText("Lower Threshold: " + jsonObject.getInt("lowerThreshold"));
-            upperThresholdTextView.setText("Upper Threshold: " + jsonObject.getInt("upperThreshold"));
-            modeTextView.setText("Mode: " + jsonObject.getString("mode"));
-            remainingTimeTextView.setText("Remaining Time: " + jsonObject.getInt("remainingTime") + " seconds");
+            soilMoistureTextView.setText("\uD83D\uDCA7 Soil Moisture (Central Node): " + jsonObject.getInt("soilMoisture"));
+            receivedSoilMoistureTextView.setText("\uD83D\uDCA7 Soil Moisture (Node 2): " + jsonObject.getInt("receivedSoilMoisture"));
+            motorStatusTextView.setText("⚙\uFE0F Motor Status: " + jsonObject.getString("motorStatus"));
+            lowerThresholdTextView.setText("\uD83D\uDCC9 Lower Threshold: " + jsonObject.getInt("lowerThreshold"));
+            upperThresholdTextView.setText("\uD83D\uDCC8 Upper Threshold: " + jsonObject.getInt("upperThreshold"));
+            modeTextView.setText("\uD83D\uDD04 Mode: " + jsonObject.getString("mode"));
+            remainingTimeTextView.setText("⏳Remaining Time: " + jsonObject.getInt("remainingTime") + " seconds");
         } catch (Exception e) {
             Log.e(TAG, "Error parsing field data", e);
             Toast.makeText(this, "Error parsing field data.", Toast.LENGTH_SHORT).show();

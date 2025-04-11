@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private static final String WEATHER_API_KEY = "da552626aaca0bf507c70ed7c260d724"; // OpenWeatherMap API Key
-    private static final String ESP_IP = "http://192.168.127.99"; // Example ESP IP for fetching sensor data
+    private static final String ESP_IP = "http://192.168.84.99"; // Example ESP IP for fetching sensor data
 
-    private Button logoutButton, rainForecastButton, profileButton, fieldControlButton;
+    private Button logoutButton, rainForecastButton, profileButton, fieldControlButton, irrigationButton ;
     private FirebaseAuth mAuth;
     private TextView usernameTextView, currentLocationTextView, temperatureDataTextView, humidityDataTextView, windSpeedDataTextView, motorFeedbackTextView, timerTextView;
 
@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         rainForecastButton = findViewById(R.id.rain_forecast_button);
         profileButton = findViewById(R.id.profile_button);
         fieldControlButton = findViewById(R.id.field_control_button);
+        irrigationButton = findViewById(R.id.irrigation_button);
         usernameTextView = findViewById(R.id.username_text_view);
         currentLocationTextView = findViewById(R.id.current_location_text_view);
         temperatureDataTextView = findViewById(R.id.temperature_data);
@@ -98,10 +99,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             finish();
         });
 
-        // Mode Switch Button
 
         // Rain Forecast Button
         rainForecastButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ForecastActivity.class)));
+
+
+        irrigationButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, AdvisorActivity.class)));
 
         // Profile Button
         profileButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ProfileActivity.class)));
@@ -141,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             if (addresses != null && !addresses.isEmpty()) {
                 Address address = addresses.get(0);
                 String cityName = address.getLocality();
-                currentLocationTextView.setText("Location: " + (cityName != null ? cityName : "Unknown") + " (" + latitude + ", " + longitude + ")");
+                currentLocationTextView.setText("Location: " + (cityName != null ? cityName : "Unknown") );
             } else {
                 currentLocationTextView.setText("Location: Unknown (" + latitude + ", " + longitude + ")");
             }
@@ -216,36 +219,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
     }
 
-    private void showSchedulerDialog() {
-        // Code to show date and time picker dialog for scheduling
-        Calendar calendar = Calendar.getInstance();
-        new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-            new TimePickerDialog(this, (timePicker, hourOfDay, minute) -> {
-                scheduledTime = Calendar.getInstance();
-                scheduledTime.set(year, month, dayOfMonth, hourOfDay, minute);
-                String dateTime = String.format(Locale.getDefault(), "%d-%02d-%02d %02d:%02d", year, month + 1, dayOfMonth, hourOfDay, minute);
-                timerTextView.setText("Scheduled Time: " + dateTime);
-            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-    }
 
-    private void controlMotor(boolean turnOn) {
-        // Code to control the motor, potentially communicating with the ESP module
-        String motorAction = turnOn ? "ON" : "OFF";
-        motorFeedbackTextView.setText("Motor " + motorAction);
-    }
+
+
 
     private void fetchLiveSensorData() {
         // Code to fetch live sensor data from ESP module and update UI
     }
 
-    private void handleAutoMode() {
-        // Code to handle Auto Mode, including fetching sensor data and controlling the motor automatically
-    }
 
-    private void handleManualMode() {
-        // Code to handle Manual Mode, including allowing the user to control the motor manually
-    }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {}

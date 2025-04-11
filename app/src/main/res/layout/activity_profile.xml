@@ -2,29 +2,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E8F5E9"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/name_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Name: " />
+    <!-- Company Logo -->
+    <ImageView
+        android:id="@+id/company_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/logo"
+        android:contentDescription="Company Logo"
+        android:scaleType="fitCenter"/>
 
-    <TextView
-        android:id="@+id/email_text_view"
-        android:layout_width="wrap_content"
+    <!-- Profile Card -->
+    <LinearLayout
+        android:id="@+id/profile_card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name_text_view"
-        android:textSize="18sp"
-        android:text="Email: " />
+        android:layout_below="@id/company_logo"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_card"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:elevation="4dp">
 
-    <TextView
-        android:id="@+id/phone_number_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/email_text_view"
-        android:textSize="18sp"
-        android:text="Phone: " />
+        <TextView
+            android:id="@+id/name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:text="👤 Name: " />
 
+        <TextView
+            android:id="@+id/email_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:textColor="#555555"
+            android:text="✉️ Email: " />
+
+        <TextView
+            android:id="@+id/phone_number_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:textColor="#555555"
+            android:text="📞 Phone: " />
+    </LinearLayout>
 </RelativeLayout>

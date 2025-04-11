@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_marginBottom="8dp">
+
+    <EditText
+        android:id="@+id/dateTime"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:hint="Date Time (YYYY-MM-DD HH:MM:SS)"
+        android:inputType="datetime" />
+
+    <EditText
+        android:id="@+id/temperature"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:hint="Temperature (°C)"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/rainAmount"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:hint="Rain Amount (mm)"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/removeForecastBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="Remove" />
+</LinearLayout>

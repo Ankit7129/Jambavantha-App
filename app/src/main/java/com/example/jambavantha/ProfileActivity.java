@@ -33,9 +33,9 @@ public class ProfileActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             // Set user details to TextViews
-            nameTextView.setText("Name: " + user.getDisplayName());
-            emailTextView.setText("Email: " + user.getEmail());
-            phoneNumberTextView.setText("Phone: " + (user.getPhoneNumber() != null ? user.getPhoneNumber() : "N/A"));
+            nameTextView.setText("\uD83D\uDC64 Name:  " + user.getDisplayName());
+            emailTextView.setText("✉\uFE0F Email: " + user.getEmail());
+            phoneNumberTextView.setText("\uD83D\uDCDE Phone: " + (user.getPhoneNumber() != null ? user.getPhoneNumber() : "N/A"));
         }
     }
 }
